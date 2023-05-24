@@ -28,7 +28,7 @@ window.onload = function() {
 
         if (bookmarkletLink) {
             bookmarkletLink.setAttribute('href', bookmarkletURL);
-        } else {
+        } else if (secretKey != null && secretKey != "") {
             bookmarkletLink = document.createElement('a');
             bookmarkletLink.setAttribute('href', bookmarkletURL);
             bookmarkletLink.setAttribute('draggable', true);

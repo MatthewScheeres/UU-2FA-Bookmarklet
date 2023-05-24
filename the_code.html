@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Code Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
+  <link rel="stylesheet" href="code_style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="index.html">Bookmarklet Generator</a>
+        <a href="how_to.html">How to get your secret key</a>
+        <a href="#" class="active">The code (for nerds)</a>
+        <a href="safety.html">Is it safe?</a>
+        <a href="about_me.html">About me</a>
+    </div>
+  <h1>JavaScript Code Example</h1>
+
+  <div class="code-block">
+    <pre><code class="language-javascript">javascript:(function() {
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/otplib@11.1.0-0/otplib-browser.js';
+  document.head.appendChild(script);
+
+  script.onload = function() {
+    var secretKey = 'your_secret_code_here';
+    var otp = otplib.authenticator.generate(secretKey);
+
+    var inputElement = document.getElementById('nffc');
+    var buttonElement = document.querySelector('a[name="loginButton2"]');
+
+    if (inputElement && buttonElement) {
+      inputElement.value = otp;
+      buttonElement.click();
+    }
+  };
+})();</code></pre>
+  </div>
+
+  <div class="code-explanation">
+    <h2>Code Explanation</h2>
+    <ul>
+      <li><code>var script = document.createElement('script');</code> creates a new script element.</li>
+      <li><code>script.src = 'https://cdn.jsdelivr.net/npm/otplib@11.1.0-0/otplib-browser.js';</code> sets the source URL for the external script file.</li>
+      <li><code>document.head.appendChild(script);</code> appends the script element to the document's head, triggering the download and execution of the external script file.</li>
+      <li><code>script.onload = function() { ... }</code> defines a callback function that runs when the external script has finished loading.</li>
+      <li><code>var secretKey = 'your_secret_code_here';</code> sets the secret key for generating the OTP (one-time password).</li>
+      <li><code>var otp = otplib.authenticator.generate(secretKey);</code> generates the OTP using the secret key.</li>
+      <li><code>var inputElement = document.getElementById('nffc');</code> selects an input element with the specified ID.</li>
+      <li><code>var buttonElement = document.querySelector('a[name="loginButton2"]');</code> selects an anchor element with the specified name attribute.</li>
+      <li><code>if (inputElement &amp;&amp; buttonElement) { ... }</code> checks if both the input element and button element exist.</li>
+      <li><code>inputElement.value = otp;</code> assigns the generated OTP to the value of the input element.</li>
+      <li><code>buttonElement.click();</code> programmatically triggers a click event on the button element.</li>
+    </ul>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-javascript.min.js"></script>
+  <script>
+    Prism.highlightAll();
+  </script>
+</body>
+</html>

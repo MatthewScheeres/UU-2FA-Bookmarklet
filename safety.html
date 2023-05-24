@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automatic UU portal 2FA Bookmarklet</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Bookmarklet Generator</a>
+        <a href="how_to.html">How to get your secret key</a>
+        <a href="the_code.html">The code (for nerds)</a>
+        <a href="#" class="active">Is it safe?</a>
+        <a href="about_me.html">About me</a>
+    </div>
+
+
+    <div class="container">
+        <h1>But is it safe?</h1>
+        <p> The code contained in this bookmarklet is hosted completely locally, meaning that the secret code you enter never leaves your browser.
+            When you enter it into the generator, it is processed <b>only</b> on your own pc to create the tool.
+            The tool works by processing the secret code, together with the current time, to generate the six digits OTP that you have to enter in the UU services, in the same way as your Google Authenticator app would.
+            This is possible due to the fact that the algorithm that is used to get this OTP is publicly available.
+            The only risk that you have to take in mind is that 2-Factor Authentication is meant as an extra measure of security for your account, since it forces you to use a separate device (i.e. your phone) to verify that it is actually you trying to log in.
+            However, as long as your browser is not hacked by hand (and believe me, if it were, you'd have much bigger problems to worry about than your uni account being hacked😉), by someone specifically trying to get into your UU account (which a hacker wouldn't really have a reason for anyway), you should be completely fine.
+            The 'NB' part of the main page is mainly meant as a disclaimer.
+        </p>
+    </div>
+    
+    
+</body>
+</html>
