@@ -18,7 +18,7 @@ function generateBookmarkletCode(secretKey) {
 
 window.onload = function() {
     var generateBookmarkletButton = document.getElementById('generateBookmarkletButton');
-    var bookmarkletButton = null;
+    var bookmarkletLink = null;
 
     generateBookmarkletButton.addEventListener('click', function() {
         var secretKeyInput = document.getElementById('secretKeyInput');
@@ -26,17 +26,23 @@ window.onload = function() {
         var bookmarkletCode = generateBookmarkletCode(secretKey);
         var bookmarkletURL = 'javascript:' + encodeURIComponent(bookmarkletCode);
 
-        if (bookmarkletButton) {
-            bookmarkletButton.setAttribute('href', bookmarkletURL);
-        } else if (secretKey != null && secretKey != "") {
-            bookmarkletButton = document.createElement('button');
-            bookmarkletButton.innerText = 'Bookmarklet';
-            bookmarkletButton.addEventListener('click', function() {
-                window.location.href = bookmarkletURL;
-            });
+        if (bookmarkletLink) {
+            bookmarkletLink.setAttribute('href', bookmarkletURL);
+        } else {
+            bookmarkletLink = document.createElement('a');
+            bookmarkletLink.setAttribute('href', bookmarkletURL);
+            bookmarkletLink.setAttribute('draggable', true);
+            bookmarkletLink.innerText = 'UU 2FA Tool';
+
+            bookmarkletLink.style.padding = '10px 20px';
+            bookmarkletLink.style.backgroundColor = '#4CAF50';
+            bookmarkletLink.style.color = 'white';
+            bookmarkletLink.style.borderRadius = '4px';
+            bookmarkletLink.style.textDecoration = 'none';
+            bookmarkletLink.style.fontWeight = 'bold';
 
             var targetElement = generateBookmarkletButton.nextElementSibling;
-            targetElement.parentNode.insertBefore(bookmarkletButton, targetElement.nextSibling);
+            targetElement.parentNode.insertBefore(bookmarkletLink, targetElement.nextSibling);
         }
     });
 };
