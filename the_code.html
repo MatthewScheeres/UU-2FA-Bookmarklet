@@ -18,40 +18,60 @@
   <h1>JavaScript Code Example</h1>
 
   <div class="code-block">
-    <pre><code class="language-javascript">javascript:(function() {
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/otplib@11.1.0-0/otplib-browser.js';
-  document.head.appendChild(script);
-
-  script.onload = function() {
-    var secretKey = 'your_secret_code_here';
-    var otp = otplib.authenticator.generate(secretKey);
-
-    var inputElement = document.getElementById('nffc');
-    var buttonElement = document.querySelector('a[name="loginButton2"]');
-
-    if (inputElement && buttonElement) {
-      inputElement.value = otp;
-      buttonElement.click();
-    }
-  };
-})();</code></pre>
+    <pre><code class="language-javascript">
+      javascript:(function() {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/otplib@11.1.0-0/otplib-browser.js';
+      document.head.appendChild(script);
+      script.onload = function() {
+          var secretKey = 'secretkey';
+          var otp = otplib.authenticator.generate(secretKey);
+          
+          // Check if the page URL contains 'https://login.uu.nl/'
+          if (window.location.href.indexOf('https://login.uu.nl/') !== -1) {
+              var inputElement = document.getElementById('nffc');
+              var buttonElement = document.querySelector('a[name="loginButton2"]');
+              if (inputElement && buttonElement) {
+                  inputElement.value = otp;
+                  buttonElement.click();
+              }
+          } else {
+              // Calculate the time remaining for the current OTP
+              var timeRemainingInSeconds = otplib.authenticator.timeRemaining();
+              var minutesRemaining = Math.floor(timeRemainingInSeconds / 60);
+              var secondsRemaining = timeRemainingInSeconds % 60;
+  
+              // Display OTP and time remaining in an alert
+              alert("Your UU OTP is: " + otp + "\nTime Remaining: " + minutesRemaining + " minutes " + secondsRemaining + " seconds");
+          }
+      };
+  })();
+  </code></pre>
   </div>
+
 
   <div class="code-explanation">
     <h2>Code Explanation</h2>
     <ul>
-      <li><code>var script = document.createElement('script');</code> creates a new script element.</li>
-      <li><code>script.src = 'https://cdn.jsdelivr.net/npm/otplib@11.1.0-0/otplib-browser.js';</code> sets the source URL for the external script file.</li>
-      <li><code>document.head.appendChild(script);</code> appends the script element to the document's head, triggering the download and execution of the external script file.</li>
-      <li><code>script.onload = function() { ... }</code> defines a callback function that runs when the external script has finished loading.</li>
-      <li><code>var secretKey = 'your_secret_code_here';</code> sets the secret key for generating the OTP (one-time password).</li>
-      <li><code>var otp = otplib.authenticator.generate(secretKey);</code> generates the OTP using the secret key.</li>
-      <li><code>var inputElement = document.getElementById('nffc');</code> selects an input element with the specified ID.</li>
-      <li><code>var buttonElement = document.querySelector('a[name="loginButton2"]');</code> selects an anchor element with the specified name attribute.</li>
-      <li><code>if (inputElement &amp;&amp; buttonElement) { ... }</code> checks if both the input element and button element exist.</li>
-      <li><code>inputElement.value = otp;</code> assigns the generated OTP to the value of the input element.</li>
-      <li><code>buttonElement.click();</code> programmatically triggers a click event on the button element.</li>
+      <li><code>var script = document.createElement('script');</code> creates a new script element within the page.</li>
+      <li><code>script.src = 'https://cdn.jsdelivr.net/npm/otplib@11.1.0-0/otplib-browser.js';</code> sets the source URL to load the 'otplib' library from a content delivery network (CDN).</li>
+      <li><code>document.head.appendChild(script);</code> appends the newly created script element to the document's head, initiating the download and execution of the 'otplib' library.</li>
+      <li><code>script.onload = function() { ... }</code> defines a callback function that executes once the 'otplib' library has finished loading. This ensures that the OTP generation code is only run after the library is available.</li>
+      <li><code>var secretKey = 'your_secret_code_here';</code> sets the secret key required for OTP generation. Replace 'your_secret_code_here' with your actual secret key.</li>
+      <li><code>var otp = otplib.authenticator.generate(secretKey);</code> generates a one-time password (OTP) using the provided secret key and stores it in the 'otp' variable.</li>
+      <li><code>// Check if the page URL contains 'https://login.uu.nl/'</code> verifies if the current page's URL matches the specified URL.</li>
+      <li><code>if (window.location.href.indexOf('https://login.uu.nl/') !== -1) { ... }</code> ensures that the subsequent code block runs only when the page URL corresponds to 'https://login.uu.nl/'.</li>
+      <li><code>var inputElement = document.getElementById('nffc');</code> selects an HTML input element with the ID 'nffc'.</li>
+      <li><code>var buttonElement = document.querySelector('a[name="loginButton2"]');</code> identifies an anchor element with the name attribute set to 'loginButton2'.</li>
+      <li><code>if (inputElement && buttonElement) { ... }</code> checks if both the input element and button element exist on the page.</li>
+      <li><code>inputElement.value = otp;</code> assigns the generated OTP to the value property of the input element, filling it with the OTP.</li>
+      <li><code>buttonElement.click();</code> programmatically triggers a click event on the button element, simulating a button press for login.</li>
+      <li><code>else { ... }</code> handles the case when the page URL doesn't match 'https://login.uu.nl/'.</li>
+      <li><code>// Calculate the time remaining for the current OTP</code> computes the time remaining until the OTP expires.</li>
+      <li><code>var timeRemainingInSeconds = otplib.authenticator.timeRemaining();</code> retrieves the time remaining in seconds.</li>
+      <li><code>var minutesRemaining = Math.floor(timeRemainingInSeconds / 60);</code> calculates the remaining minutes from seconds.</li>
+      <li><code>var secondsRemaining = timeRemainingInSeconds % 60;</code> computes the remaining seconds after subtracting the minutes.</li>
+      <li><code>alert("OTP: " + otp + "\nTime Remaining: " + minutesRemaining + " minutes " + secondsRemaining + " seconds");</code> displays an alert message containing the OTP and the time remaining in the OTP's validity period.</li>
     </ul>
   </div>
 

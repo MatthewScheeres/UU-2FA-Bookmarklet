@@ -6,15 +6,26 @@ function generateBookmarkletCode(secretKey) {
         'script.onload = function() {' +
         'var secretKey = \'' + secretKey + '\';' +
         'var otp = otplib.authenticator.generate(secretKey);' +
+
+        'if (window.location.href.indexOf(\'https://login.uu.nl/\') !== -1) {' +
         'var inputElement = document.getElementById(\'nffc\');' +
         'var buttonElement = document.querySelector(\'a[name="loginButton2"]\');' +
         'if (inputElement && buttonElement) {' +
         'inputElement.value = otp;' +
         'buttonElement.click();' +
         '}' +
+        '} else {' +
+        'var timeRemainingInSeconds = otplib.authenticator.timeRemaining();' +
+        'var minutesRemaining = Math.floor(timeRemainingInSeconds / 60);' +
+        'var secondsRemaining = timeRemainingInSeconds % 60;' +
+
+        'alert("OTP: " + otp + "\\nTime Remaining: " + minutesRemaining + " minutes " + secondsRemaining + " seconds");' +
+        '}' +
+
         '};' +
         '})();';
 }
+
 
 window.onload = function() {
     var generateBookmarkletButton = document.getElementById('generateBookmarkletButton');
